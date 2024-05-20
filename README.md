@@ -6,27 +6,31 @@
 | ----------------------| ------ | ------------------------- |
 | nickname              | string | null: false               |
 | email                 | string | null: false, unique: true |
-| password              | string | null: false               |
-| password_confirmation | string | null: false               |
-| full_name             | string | null: false               |
-| full_name_kana        | string | null: false               |
-| date_of_birth         | string | null: false               |
-
+| encrypted_password    | string | null: false               |
+| last_name             | string | null: false               |
+| first_name            | string | null: false               |
+| last_name_kana        | string | null: false               |
+| first_name_kana       | string | null: false               |
+| date_of_birth         | date   | null: false               |
 
 ### Association
 
-- has_many :prototypes
-- has_many :comments
+- has_many :products
+- has_many :purchases
 
 ## products テーブル
 
-| Column | Type   | Options                                     |
-| ----------- | -------------- | ------------------------------ |
-| user        | references     | null: false, foreign_key: true |
-| image       | text           | null: false                    |
-| name         | string        | null: false, limit: 40         |
-| description  | text          | null: false, limit: 1000       |
-| price       | DECIMAL(10, 2) | null: false                    |
+| Column          | Type       | Options                        |
+| --------------- | ---------- | ------------------------------ |
+| user            | references | null: false, foreign_key: true |
+| name            | string     | null: false, limit: 40         |
+| description     | text       | null: false, limit: 1000       |
+| category        | string     | null: false                    |
+| condition       | string     | null: false                    |
+| delivery_cost   | string     | null: false                    |
+| delivery_region | string     | null: false                    |
+| delivery_days   | string     | null: false                    |
+| price           | integer    | null: false                    |
 
 ### Association
 
@@ -48,14 +52,14 @@
 
 ## deliveries テーブル
 
-| Column       | Type       | Options                        |
-| ------------ | ---------- | ------------------------------ |
-| purchase     | references | null: false, foreign_key: true |
-| postal_code  | string     | null: false                    |
-| prefecture   | string     | null: false                    |
-| city         | string     | null: false                    |
-| address      | string     |                                |
-| phone_number | string     | null: false                    |
+| Column        | Type       | Options                        |
+| ------------ -| ---------- | ------------------------------ |
+| purchase      | references | null: false, foreign_key: true |
+| postal_code   | string     | null: false                    |
+| city          | string     | null: false                    |
+| address_line1 | string     | null: false                    |
+| address_line2 | string     |                                |
+| phone_number  | string     | null: false                    |
 
 ### Association
 
