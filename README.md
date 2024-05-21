@@ -20,29 +20,35 @@
 
 ## products テーブル
 
-| Column          | Type       | Options                        |
-| --------------- | ---------- | ------------------------------ |
-| user            | references | null: false, foreign_key: true |
-| name            | string     | null: false, limit: 40         |
-| description     | text       | null: false, limit: 1000       |
-| category        | string     | null: false                    |
-| condition       | string     | null: false                    |
-| delivery_cost   | string     | null: false                    |
-| delivery_region | string     | null: false                    |
-| delivery_days   | string     | null: false                    |
-| price           | integer    | null: false                    |
+| Column             | Type       | Options                        |
+| ------------------ | ---------- | ------------------------------ |
+| user               | references | null: false, foreign_key: true |
+| name               | string     | null: false, limit: 40         |
+| description        | text       | null: false, limit: 1000       |
+| category_id        | integer    | null: false                    |
+| condition_id       | integer    | null: false                    |
+| delivery_cost_id   | integer    | null: false                    |
+| delivery_region_id | integer    | null: false                    |
+| delivery_days_id   | integer    | null: false                    |
+| price              | integer    | null: false                    |
 
 ### Association
 
+- belongs_to :user
+- belongs_to :category
+- belongs_to :condition
+- belongs_to :delivery_cost
+- belongs_to :delivery_region
+- belongs_to :delivery_days
 - belongs_to :user
 - has_one :purchase
 
 ## purchases テーブル
 
-| Column    | Type       | Options           |
-| --------- | ---------- | ----------------- |
-| user      | references | foreign_key: true |
-| product   | references | foreign_key: true |
+| Column    | Type       | Options                        |
+| --------- | ---------- | ------------------------------ |
+| user      | references | null: false, foreign_key: true |
+| product   | references | null: false, foreign_key: true |
 
 ### Association
 
@@ -53,9 +59,10 @@
 ## deliveries テーブル
 
 | Column        | Type       | Options                        |
-| ------------ -| ---------- | ------------------------------ |
+| --------------| ---------- | ------------------------------ |
 | purchase      | references | null: false, foreign_key: true |
 | postal_code   | string     | null: false                    |
+| prefecture_id | integer    | null: false                    |
 | city          | string     | null: false                    |
 | address_line1 | string     | null: false                    |
 | address_line2 | string     |                                |
@@ -64,3 +71,4 @@
 ### Association
 
 - belongs_to :purchase
+- belongs_to :prefecture
