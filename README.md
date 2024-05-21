@@ -38,7 +38,7 @@
 - belongs_to :category
 - belongs_to :condition
 - belongs_to :delivery_cost
-- belongs_to :prefecture_id
+- belongs_to :prefecture
 - belongs_to :delivery_day
 - has_one :purchase
 
