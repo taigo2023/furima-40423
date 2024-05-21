@@ -23,13 +23,13 @@
 | Column             | Type       | Options                        |
 | ------------------ | ---------- | ------------------------------ |
 | user               | references | null: false, foreign_key: true |
-| name               | string     | null: false, limit: 40         |
-| description        | text       | null: false, limit: 1000       |
+| name               | string     | null: false                    |
+| description        | text       | null: false                    |
 | category_id        | integer    | null: false                    |
 | condition_id       | integer    | null: false                    |
 | delivery_cost_id   | integer    | null: false                    |
-| delivery_region_id | integer    | null: false                    |
-| delivery_days_id   | integer    | null: false                    |
+| prefecture_id      | integer    | null: false                    |
+| delivery_day_id    | integer    | null: false                    |
 | price              | integer    | null: false                    |
 
 ### Association
@@ -38,9 +38,8 @@
 - belongs_to :category
 - belongs_to :condition
 - belongs_to :delivery_cost
-- belongs_to :delivery_region
-- belongs_to :delivery_days
-- belongs_to :user
+- belongs_to :prefecture_id
+- belongs_to :delivery_day
 - has_one :purchase
 
 ## purchases テーブル
