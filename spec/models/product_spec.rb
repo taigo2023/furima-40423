@@ -28,32 +28,27 @@ RSpec.describe Product, type: :model do
         expect(@product.errors.full_messages).to include("Description can't be blank")
       end
       it 'カテゴリーの情報がないと保存できない' do
-        @product.category_id = { id: 1, name: '---' }
+        @product.category_id = 1
         @product.valid?
         expect(@product.errors.full_messages).to include("Category can't be blank")
       end
       it '商品状態の情報がないと保存できない' do
-        @product.category_id = { id: 1, name: '---' }
-        @product.valid?
-        expect(@product.errors.full_messages).to include("Category can't be blank")
-      end
-      it '商品状態の情報がないと保存できない' do
-        @product.condition_id = { id: 1, name: '---' }
+        @product.condition_id = 1
         @product.valid?
         expect(@product.errors.full_messages).to include("Condition can't be blank")
       end
       it '配送料の負担の情報がないと保存できない' do
-        @product.delivery_cost_id = { id: 1, name: '---' }
+        @product.delivery_cost_id = 1
         @product.valid?
         expect(@product.errors.full_messages).to include("Delivery cost can't be blank")
       end
       it '発送元の地域の情報がないと保存できない' do
-        @product.prefecture_id = { id: 1, name: '---' }
+        @product.prefecture_id = 1
         @product.valid?
         expect(@product.errors.full_messages).to include("Prefecture can't be blank")
       end
       it '発送までの日数の情報がないと保存できない' do
-        @product.delivery_day_id = { id: 1, name: '---' }
+        @product.delivery_day_id = 1
         @product.valid?
         expect(@product.errors.full_messages).to include("Delivery day can't be blank")
       end
