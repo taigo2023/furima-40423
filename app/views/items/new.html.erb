@@ -22,7 +22,12 @@
         <%= f.file_field :image, id:"item-image" %>
           <% if @product.image.attached? %>
             <p>現在の画像:</p>
-            <%= image_tag @product.image.variant(resize: '500x500') %>
+            <% begin %>
+              <%= image_tag @product.image.variant(resize: '500x500').processed %>
+            <% rescue ActiveStorage::InvariableError => e %>
+              <%= image_tag @product.image %>
+              <p>画像のリサイズに失敗しました: <%= e.message %></p>
+            <% end %>
           <% end %>
       </div>
     </div>
