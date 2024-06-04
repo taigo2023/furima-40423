@@ -17,6 +17,10 @@ class ItemsController < ApplicationController
     end
   end
 
+  def show
+    @product = Product.find(params[:id])
+  end
+
   private
 
   def product_params
@@ -24,4 +28,3 @@ class ItemsController < ApplicationController
                                     :delivery_day_id, :image).merge(user_id: current_user.id)
   end
 end
-
