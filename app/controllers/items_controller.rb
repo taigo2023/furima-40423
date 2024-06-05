@@ -1,4 +1,4 @@
-class ItemsController < ApplicationController
+class ItemsController < ApplicationController   
   before_action :authenticate_user!, only: [:new, :create, :edit, :update, :destroy]
   before_action :set_product, only: [:show, :edit, :update]
   before_action :correct_user, only: [:edit, :update, :destroy]
