@@ -1,7 +1,7 @@
-class ItemsController < ApplicationController
-  before_action :authenticate_user!, only: [:new, :create, :edit, :update]
-  before_action :set_product, only: [:show, :edit, :update]
-  before_action :correct_user, only: [:edit, :update]
+class ItemsController < ApplicationController   
+  before_action :authenticate_user!, only: [:new, :create, :edit, :update, :destroy]
+  before_action :set_product, only: [:show, :edit, :update, :destroy]
+  before_action :correct_user, only: [:edit, :update, :destroy]
 
   def index
     @products = Product.order(created_at: :desc)
@@ -20,6 +20,11 @@ class ItemsController < ApplicationController
     end
   end
 
+  def destroy
+    @product.destroy
+    redirect_to root_path
+  end
+
   def show
   end
 
@@ -27,11 +32,9 @@ class ItemsController < ApplicationController
   end
 
   def update
-    product = Product.find(params[:id])
-    if product.update(product_params)
-      redirect_to item_path(product)
+    if @product.update(product_params)
+      redirect_to item_path(@product)
     else
-      @product = product
       render :edit, status: :unprocessable_entity
     end
   end
@@ -48,9 +51,6 @@ class ItemsController < ApplicationController
   end
 
   def correct_user
-    @product = Product.find(params[:id])
-    return if current_user == @product.user
-
-    redirect_to root_path
+    redirect_to root_path unless current_user == @product.user
   end
 end
