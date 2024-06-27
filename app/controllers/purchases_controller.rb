@@ -7,7 +7,7 @@ class PurchasesController < ApplicationController
   def index
     @purchase_delivery = PurchaseDelivery.new
     gon.clear
-    gon.public_key = ENV["PAYJP_PUBLIC_KEY"]
+    gon.public_key = ENV['PAYJP_PUBLIC_KEY']
   end
 
   def create
@@ -23,12 +23,12 @@ class PurchasesController < ApplicationController
       redirect_to root_path, notice: '購入が完了しました。'
     else
       Rails.logger.debug(@purchase_delivery.errors.full_messages)
-      gon.public_key = ENV["PAYJP_PUBLIC_KEY"]
+      gon.public_key = ENV['PAYJP_PUBLIC_KEY']
       render :index, status: :unprocessable_entity
     end
   rescue Payjp::PayjpError => e
     Rails.logger.error "PayjpError: #{e.message}"
-    @purchase_delivery.errors.add(:base, "支払い処理中にエラーが発生しました。もう一度お試しください。")
+    @purchase_delivery.errors.add(:base, '支払い処理中にエラーが発生しました。もう一度お試しください。')
     render :index, status: :unprocessable_entity
   end
 
@@ -41,7 +41,7 @@ class PurchasesController < ApplicationController
   end
 
   def pay_item
-    Payjp.api_key = ENV["PAYJP_SECRET_KEY"]
+    Payjp.api_key = ENV['PAYJP_SECRET_KEY']
     charge = Payjp::Charge.create(
       amount: @product.price,
       card: purchase_params[:token],

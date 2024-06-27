@@ -21,7 +21,7 @@ RSpec.describe PurchaseDelivery, type: :model do
     end
 
     context '内容に問題がある場合' do
-      it "tokenが空では登録できないこと" do
+      it 'tokenが空では登録できないこと' do
         @purchase_delivery.token = nil
         @purchase_delivery.valid?
         expect(@purchase_delivery.errors.full_messages).to include("Token can't be blank")
@@ -59,12 +59,12 @@ RSpec.describe PurchaseDelivery, type: :model do
       it 'phone_numberが短いと保存できないこと' do
         @purchase_delivery.phone_number = '111222333'
         @purchase_delivery.valid?
-        expect(@purchase_delivery.errors.full_messages).to include("Phone number is too short (minimum is 10 characters)")
+        expect(@purchase_delivery.errors.full_messages).to include('Phone number is too short (minimum is 10 characters)')
       end
       it 'phone_numberが数字以外だと保存できないこと' do
         @purchase_delivery.phone_number = '11122233T'
         @purchase_delivery.valid?
-        expect(@purchase_delivery.errors.full_messages).to include("Phone number is invalid. Input only number")
+        expect(@purchase_delivery.errors.full_messages).to include('Phone number is invalid. Input only number')
       end
       it 'userが紐付いていないと保存できないこと' do
         @purchase_delivery.user_id = nil

@@ -61,8 +61,8 @@ class ItemsController < ApplicationController
   end
 
   def redirect_if_sold
-    if @product.sold?
-      redirect_to root_path
-    end
+    return unless @product.sold?
+
+    redirect_to root_path
   end
 end
