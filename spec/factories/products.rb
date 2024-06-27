@@ -8,7 +8,7 @@ FactoryBot.define do
     delivery_cost_id { 2 }
     prefecture_id { 2 }
     delivery_day_id { 2 }
-    association :user
+    user { association :user }
 
     after(:build) do |product|
       product.image.attach(io: File.open(Rails.root.join('public/images/test_image.png')), filename: 'test_image.png',
