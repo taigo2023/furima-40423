@@ -7,6 +7,7 @@ class Product < ApplicationRecord
   belongs_to :delivery_cost
   belongs_to :prefecture
   belongs_to :delivery_day
+  has_one :purchase
 
   validates :image, :name, :description, presence: true
 
@@ -15,4 +16,7 @@ class Product < ApplicationRecord
 
   validates :category_id, :condition_id, :delivery_cost_id, :prefecture_id, :delivery_day_id,
             numericality: { other_than: 1, message: "can't be blank" }
+  def sold?
+    purchase.present?
+  end
 end
