@@ -2,9 +2,8 @@ require 'rails_helper'
 
 RSpec.describe PurchaseDelivery, type: :model do
   before do
-    user_for_product = FactoryBot.create(:user)
-    product = FactoryBot.create(:product, user: user_for_product)
-
+    user = FactoryBot.create(:user)
+    product = FactoryBot.create(:product)
     user_for_purchase = FactoryBot.create(:user)
     @purchase_delivery = FactoryBot.build(:purchase_delivery, user_id: user_for_purchase.id, product_id: product.id)
   end
@@ -56,14 +55,19 @@ RSpec.describe PurchaseDelivery, type: :model do
         @purchase_delivery.valid?
         expect(@purchase_delivery.errors.full_messages).to include("Phone number can't be blank")
       end
-      it 'phone_numberが短いと保存できないこと' do
+      it 'phone_numberが9桁以下の場合登録できない' do
         @purchase_delivery.phone_number = '111222333'
         @purchase_delivery.valid?
         expect(@purchase_delivery.errors.full_messages).to include('Phone number is too short (minimum is 10 characters)')
       end
+      it 'phone_numberが12桁以上の場合登録できない' do
+        @purchase_delivery.phone_number = '111222333444'
+        @purchase_delivery.valid?
+        expect(@purchase_delivery.errors.full_messages).to include('Phone number is invalid. Input only number')
+      end
       it 'phone_numberが数字以外だと保存できないこと' do
         @purchase_delivery.phone_number = '11122233T'
-        @purchase_delivery.valid?
+        @purchase_delivery.valid?  # 修正箇所
         expect(@purchase_delivery.errors.full_messages).to include('Phone number is invalid. Input only number')
       end
       it 'userが紐付いていないと保存できないこと' do
