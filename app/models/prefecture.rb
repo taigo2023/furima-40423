@@ -52,4 +52,6 @@ class Prefecture < ActiveHash::Base
 
   include ActiveHash::Associations
   has_many :products
+  has_many :deliveries
+  has_many :purchase_deliveries, class_name: 'PurchaseDelivery'
 end

@@ -1,7 +1,8 @@
-class ItemsController < ApplicationController   
+class ItemsController < ApplicationController
   before_action :authenticate_user!, only: [:new, :create, :edit, :update, :destroy]
   before_action :set_product, only: [:show, :edit, :update, :destroy]
   before_action :correct_user, only: [:edit, :update, :destroy]
+  before_action :redirect_if_sold, only: [:edit, :update]
 
   def index
     @products = Product.order(created_at: :desc)
@@ -16,6 +17,7 @@ class ItemsController < ApplicationController
     if @product.save
       redirect_to root_path
     else
+      Rails.logger.error("Product save failed: #{params.inspect}")
       render :new, status: :unprocessable_entity
     end
   end
@@ -42,7 +44,11 @@ class ItemsController < ApplicationController
   private
 
   def set_product
+    Rails.logger.error("Params: #{params.inspect}")
     @product = Product.find(params[:id])
+  rescue ActiveRecord::RecordNotFound => e
+    Rails.logger.error("Product not found: #{e.message}")
+    redirect_to root_path
   end
 
   def product_params
@@ -52,5 +58,11 @@ class ItemsController < ApplicationController
 
   def correct_user
     redirect_to root_path unless current_user == @product.user
+  end
+
+  def redirect_if_sold
+    return unless @product.sold?
+
+    redirect_to root_path
   end
 end

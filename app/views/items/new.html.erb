@@ -24,9 +24,9 @@
             <p>現在の画像:</p>
             <% begin %>
               <%= image_tag @product.image.variant(resize: '500x500').processed %>
-            <% rescue ActiveStorage::InvariableError => e %>
-              <%= image_tag @product.image %>
-              <p>画像のリサイズに失敗しました: <%= e.message %></p>
+              <% rescue ActiveStorage::InvariableError, ActiveStorage::FileNotFoundError => e %>
+                <%= image_tag @product.image %>
+                <p>画像の処理に失敗しました: <%= e.message %></p>
             <% end %>
           <% end %>
       </div>
