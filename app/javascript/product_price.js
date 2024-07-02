@@ -1,20 +1,20 @@
 document.addEventListener("turbo:load", () => {
   const updatePrices = () => {
     const priceInput = document.getElementById("item-price");
-    if (!priceInput) return; // フォームが存在しない場合は処理しない
+    if (!priceInput) return; //
 
     const calculatePrices = () => {
-      const inputValue = parseInt(priceInput.value, 10); // 文字列を数値に変換
+      const inputValue = parseInt(priceInput.value, 10);
 
       if (!isNaN(inputValue) && inputValue >= 300 && inputValue <= 9999999) {
         const tax = Math.floor(inputValue * 0.10);
         const profit = inputValue - tax;
 
         const addTaxDom = document.getElementById("add-tax-price");
-        addTaxDom.textContent = tax.toLocaleString(); // 販売手数料を表示
+        addTaxDom.textContent = tax.toLocaleString();
 
         const profitDom = document.getElementById("profit");
-        profitDom.textContent = profit.toLocaleString(); // 販売利益を表示
+        profitDom.textContent = profit.toLocaleString();
       } else {
         const addTaxDom = document.getElementById("add-tax-price");
         addTaxDom.textContent = "0";
@@ -44,20 +44,20 @@ document.addEventListener("turbo:load", () => {
 document.addEventListener("turbo:render", () => {
   const updatePrices = () => {
     const priceInput = document.getElementById("item-price");
-    if (!priceInput) return; // フォームが存在しない場合は処理しない
+    if (!priceInput) return;
 
     const calculatePrices = () => {
-      const inputValue = parseInt(priceInput.value, 10); // 文字列を数値に変換
+      const inputValue = parseInt(priceInput.value, 10);
 
       if (!isNaN(inputValue) && inputValue >= 300 && inputValue <= 9999999) {
         const tax = Math.floor(inputValue * 0.10);
         const profit = inputValue - tax;
 
         const addTaxDom = document.getElementById("add-tax-price");
-        addTaxDom.textContent = tax.toLocaleString(); // 販売手数料を表示
+        addTaxDom.textContent = tax.toLocaleString();
 
         const profitDom = document.getElementById("profit");
-        profitDom.textContent = profit.toLocaleString(); // 販売利益を表示
+        profitDom.textContent = profit.toLocaleString();
       } else {
         const addTaxDom = document.getElementById("add-tax-price");
         addTaxDom.textContent = "0";
@@ -73,4 +73,10 @@ document.addEventListener("turbo:render", () => {
   };
 
   updatePrices();
+
+  const addTaxDom = document.getElementById("add-tax-price");
+  addTaxDom.textContent = "";
+
+  const profitDom = document.getElementById("profit");
+  profitDom.textContent = "";
 });
